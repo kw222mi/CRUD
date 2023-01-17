@@ -1,0 +1,35 @@
+{
+    "name": "assignment-b1-crud-snippets",
+    "version": "1.0.0",
+    "description": "1DV026 - assignment B1",
+    "type": "module",
+    "main": "src/server.js",
+    "scripts": {
+        "start": "node src/server.js",
+        "dev": "nodemon --inspect -r dotenv/config src/server.js",
+        "lint": "npx eslint ./src || exit 0",
+        "lint:fix": "npx eslint ./src --fix || exit 0"
+    },
+    "contributor": [
+        "Therese Weidenstedt <kw222mi@student.lnu.se>"
+    ],
+    "license": "MIT",
+    "private": true,
+    "dependencies": {
+        "bcrypt": "^5.0.1",
+        "bcryptjs": "^2.4.3",
+        "connect-mongodb-session": "^3.1.1",
+        "ejs": "^3.1.6",
+        "express": "^4.17.2",
+        "express-ejs-layouts": "^2.5.1",
+        "express-session": "^1.17.2",
+        "helmet": "^5.0.2",
+        "mongoose": "^6.1.4",
+        "morgan": "^1.10.0"
+    },
+    "devDependencies": {
+        "@lnu/eslint-config": "^1.1.4",
+        "dotenv": "^10.0.0",
+        "nodemon": "^2.0.15"
+    }
+}
