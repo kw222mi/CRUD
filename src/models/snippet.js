@@ -13,17 +13,14 @@ const schema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    minlength: 1
+    minlength: 1,
+    maxlength: 500
   },
-  done: {
-    type: Boolean,
-    required: true,
-    default: false
-  },
+
   author: {
     type: String,
-    required: true,
-    
+    required: true
+
   }
 }, {
   timestamps: true,

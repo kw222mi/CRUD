@@ -15,7 +15,8 @@ const schema = new mongoose.Schema({
     required: true,
     unique: true,
     trim: true,
-    minlength: 1
+    minlength: 1,
+    maxlength: 100
   },
   password: {
     type: String,
@@ -65,8 +66,6 @@ schema.statics.authenticate = async function (username, password) {
   // User found and password correct, return the user.
   return user
 }
-
-
 
 // Create a model using the schema.
 export const User = mongoose.model('User', schema)

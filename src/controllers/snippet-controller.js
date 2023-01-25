@@ -40,7 +40,6 @@ export class SnippetController {
   async create (req, res) {
     res.render('snippets/create')
     console.log(req.session)
-    
   }
 
   /**
@@ -50,10 +49,10 @@ export class SnippetController {
    * @param {object} res - Express response object.
    */
   async createPost (req, res) {
-    if(!req.session.auth == true){
+    if (!req.session.auth === true) {
       res.redirect('/users/login')
     } else {
-      console.log("authorized")
+      console.log('authorized')
     }
     try {
       const snippet = new Snippet({
@@ -71,15 +70,28 @@ export class SnippetController {
     }
   }
 
-  async authorize(req, res, next){
+  /**
+   *
+   * @param req
+   * @param res
+   * @param next
+   */
+  async authorize (req, res, next) {
     const snippet = await Snippet.findById(req.params.id)
-      if(snippet.author == req.session.username){
-        console.log('authorized')
-        next()
-      } else {
-        console.log('not authorized')
-        res.redirect('/users/login')
-      }
+    if (snippet.author === req.session.username) {
+      console.log('authorized')
+      next()
+    } else if (!req.session.auth === true) {
+      console.log('not logged in')
+      const error = new Error('Not found')
+      error.statusCode = 404
+      return next(error)
+    } else {
+      console.log('not authorized')
+      const error = new Error('Forbidden')
+      error.statusCode = 403
+      return next(error)
+    }
   }
 
   /**
@@ -89,7 +101,6 @@ export class SnippetController {
    * @param {object} res - Express response object.
    */
   async update (req, res) {
-    
     try {
       const snippet = await Snippet.findById(req.params.id)
       res.render('snippets/update', { viewData: snippet.toObject() })
@@ -106,7 +117,6 @@ export class SnippetController {
    * @param {object} res - Express response object.
    */
   async updatePost (req, res) {
-    
     try {
       const snippet = await Snippet.findById(req.params.id)
 

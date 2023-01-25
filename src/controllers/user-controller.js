@@ -17,7 +17,7 @@ export class UserController {
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
    */
-  async register(req, res) {
+  async register (req, res) {
     res.render('users/register')
   }
 
@@ -27,7 +27,7 @@ export class UserController {
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
    */
-  async registerPost(req, res) {
+  async registerPost (req, res) {
     console.log(req.body)
     try {
       const user = new User({
@@ -51,7 +51,7 @@ export class UserController {
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
    */
-  async login(req, res) {
+  async login (req, res) {
     res.render('users/login')
   }
 
@@ -81,19 +81,17 @@ export class UserController {
       res.redirect('/users')
     }
   }
+
   /**
    * Logout a user.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
    */
- async logout(req, res) {
+  async logout (req, res) {
   // destroy session data
-  req.session = null;
-  console.log(req.session)
-  // redirect to homepage
-  res.redirect('/');
+    req.session.destroy()
+    // redirect to homepage
+    res.redirect('/')
+  }
 }
-}
-
-

@@ -68,7 +68,6 @@ try {
     console.log(error)
   })
 
-
   // Setup and use session middleware (https://github.com/expressjs/session)
   const sessionOptions = {
     name: process.env.SESSION_NAME, // Don't use default session cookie name.
@@ -108,6 +107,12 @@ try {
 
   // Error handler.
   app.use(function (err, req, res, next) {
+    // 403 Forbidden.
+    if (err.status === 403) {
+      return res
+        .status(403)
+        .sendFile(join(directoryFullName, 'views', 'errors', '403.html'))
+    }
     // 404 Not Found.
     if (err.status === 404) {
       return res

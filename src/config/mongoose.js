@@ -1,7 +1,7 @@
 /**
  * Mongoose configuration.
  *
- * @author Therese
+ * @author Therese Weidenstedt
  * @version 1.0.0
  */
 
