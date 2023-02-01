@@ -71,10 +71,11 @@ export class SnippetController {
   }
 
   /**
+   * Check if a user is authorized.
    *
-   * @param req
-   * @param res
-   * @param next
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {object} next - Exress next object.
    */
   async authorize (req, res, next) {
     const snippet = await Snippet.findById(req.params.id)
