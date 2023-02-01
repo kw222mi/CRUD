@@ -18,11 +18,25 @@ html {
     background-color: #f5f5f5;
   }
   
-  /* Floating labels styles
-  -------------------------------------------------- * /
+  
   :root {
     --input-padding-x: .75rem;
     --input-padding-y: .75rem;
+  }
+
+  .form-control {
+    width:300px;
+  }
+
+  .btn-primary{
+    width:300px; 
+    display: block !important;
+    margin-bottom: 5px;
+    
+  }
+
+  #hr-login {
+    border: 1px solid white;
   }
   
   .form-label-group {
@@ -41,7 +55,7 @@ html {
     left: 0;
     display: block;
     width: 100%;
-    margin-bottom: 0; /* Override default `<label>` margin * /
+    margin-bottom: 0;  
     line-height: 1.5;
     color: #495057;
     border: 1px solid transparent;
@@ -80,7 +94,7 @@ html {
     font-size: 12px;
     color: #777;
   }
-  */
+  
   
   /* Custom page CSS
   -------------------------------------------------- */
