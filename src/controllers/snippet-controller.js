@@ -32,6 +32,22 @@ export class SnippetController {
     }
   }
 
+   /**
+   * Returns a HTML form for updating a snippet.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   */
+   async view (req, res) {
+    try {
+      const snippet = await Snippet.findById(req.params.id)
+      res.render('snippets/view', { viewData: snippet.toObject() })
+    } catch (error) {
+      req.session.flash = { type: 'danger', text: error.message }
+      res.redirect('..')
+    }
+  }
+
   /**
    * Returns a HTML form for creating a new snippet.
    *
@@ -39,8 +55,7 @@ export class SnippetController {
    * @param {object} res - Express response object.
    */
   async create (req, res) {
-    res.render('snippets/create')
-    console.log(req.session)
+    res.render('snippets/create', { user: req.session.username })
   }
 
   /**
@@ -48,10 +63,14 @@ export class SnippetController {
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
    */
-  async createPost (req, res) {
+  async createPost (req, res, next) {
     if (!req.session.auth === true) {
-      res.redirect('/users/login')
+      console.log('not logged in')
+      const error = new Error('Not found')
+      error.statusCode = 404
+      return next(error)
     } else {
       console.log('authorized')
     }
@@ -60,9 +79,7 @@ export class SnippetController {
         description: req.body.description,
         author: req.session.username
       })
-
       await snippet.save()
-
       req.session.flash = { type: 'success', text: 'The snippet was created successfully.' }
       res.redirect('.')
     } catch (error) {

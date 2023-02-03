@@ -17,7 +17,7 @@ export class UserController {
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
    */
-  async register (req, res) {
+  async register(req, res) {
     res.render('users/register')
   }
 
@@ -52,7 +52,7 @@ export class UserController {
    * @param {object} res - Express response object.
    */
   async login (req, res) {
-    res.render('users/login')
+    res.render('users/login', { user: req.session.username })
   }
 
   /**
@@ -87,11 +87,19 @@ export class UserController {
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
+   * @param {object} next - Express next object.
    */
-  async logout (req, res) {
-  // destroy session data
-    req.session.destroy()
-    // redirect to homepage
-    res.redirect('/')
+  async logout (req, res, next) {
+    if (!req.session.auth === true) {
+      console.log('not logged in')
+      const error = new Error('Not found')
+      error.statusCode = 404
+      return next(error)
+    } else {
+      // destroy session data
+      req.session.destroy()
+      // redirect to homepage
+      res.redirect('/')
+    }
   }
 }

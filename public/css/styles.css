@@ -31,7 +31,8 @@ html {
   .btn-primary{
     width:300px; 
     display: block !important;
-    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
     
   }
 

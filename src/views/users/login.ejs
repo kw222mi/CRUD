@@ -12,7 +12,8 @@
     <hr id="hr-login" />
     <button type="submit" class="btn btn-primary">Login</button>
   </form>
-  <% if (req.session.username) { %>
+  <% if (user) { %>
+    <p style="font-size:60%; font-style: italic;">You are logged in as  <%= user %>, click the button to log out</p>
   <form class="row g-3" method="get" action="./users/logout">
     <button type="submit" class="btn btn-primary">Logout</button>
   </form>

@@ -14,7 +14,9 @@ const controller = new SnippetController()
 
 // Map HTTP verbs and route paths to controller action methods.
 
- router.get('/', (req, res, next) => controller.index(req, res, next))
+router.get('/', (req, res, next) => controller.index(req, res, next))
+
+router.get('/:id/view', (req, res, next) => controller.view(req, res, next))
 
 router.get('/create', (req, res, next) => controller.create(req, res, next))
 router.post('/create', (req, res, next) => controller.createPost(req, res, next))
