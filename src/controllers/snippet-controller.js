@@ -23,8 +23,9 @@ export class SnippetController {
       const viewData = {
         snippets: (await Snippet.find())
           .map(snippet => snippet.toObject())
+          .map(v => ({ ...v, loggedin: req.session.username }))
       }
-
+      console.log(viewData)
       res.render('snippets/index', { viewData })
     } catch (error) {
       next(error)

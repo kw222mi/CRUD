@@ -12,10 +12,14 @@
         <tr>
           <td class="w-100 <% if (snippet.done) { %> text-muted <% } %>">
             <%= snippet.description %>
+           
           </td>
           <td class="text-nowrap">
+            <a href="./snippets/<%= snippet.id %>/view">View</a>
+            <% if (snippet.loggedin == snippet.author) { %>
             <a href="./snippets/<%= snippet.id %>/update">Update</a>
             <a href="./snippets/<%= snippet.id %>/delete">Delete</a>
+            <% } %>
           </td>
         </tr>
       <% } %>
@@ -28,3 +32,4 @@
     <% } %>
   </tbody>
 </table>
+

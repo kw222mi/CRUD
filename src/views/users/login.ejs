@@ -12,8 +12,10 @@
     <hr id="hr-login" />
     <button type="submit" class="btn btn-primary">Login</button>
   </form>
+  <% if (req.session.username) { %>
   <form class="row g-3" method="get" action="./users/logout">
     <button type="submit" class="btn btn-primary">Logout</button>
   </form>
+  <% } %>
   <a href="/users/register">Register new user</a>
   </div>
