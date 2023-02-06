@@ -26,6 +26,17 @@ html {
 
   .form-control {
     width:300px;
+    margin-bottom: 10px;
+  }
+
+  #createDescriptionInput{
+    width:100% !important;
+  }
+  #UpdateDescriptionInput {
+    width:100% !important;
+  }
+  #deleteDescriptionInput {
+    width:100% !important;
   }
 
   .btn-primary{

@@ -9,18 +9,24 @@ import mongoose from 'mongoose'
 
 // Create a schema.
 const schema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+    minlength: 1,
+    maxlength: 50
+  },
   description: {
     type: String,
     required: true,
     trim: true,
     minlength: 1,
-    maxlength: 500
+    maxlength: 5000
   },
 
   author: {
     type: String,
     required: true
-
   }
 }, {
   timestamps: true,

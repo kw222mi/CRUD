@@ -25,23 +25,22 @@ export class SnippetController {
           .map(snippet => snippet.toObject())
           .map(v => ({ ...v, loggedin: req.session.username }))
       }
-      console.log(viewData)
-      res.render('snippets/index', { viewData })
+      res.render('./snippets/index', { viewData })
     } catch (error) {
       next(error)
     }
   }
 
-   /**
+  /**
    * Returns a HTML form for updating a snippet.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
    */
-   async view (req, res) {
+  async view (req, res) {
     try {
       const snippet = await Snippet.findById(req.params.id)
-      res.render('snippets/view', { viewData: snippet.toObject() })
+      res.render('./snippets/view', { viewData: snippet.toObject() })
     } catch (error) {
       req.session.flash = { type: 'danger', text: error.message }
       res.redirect('..')
@@ -55,7 +54,7 @@ export class SnippetController {
    * @param {object} res - Express response object.
    */
   async create (req, res) {
-    res.render('snippets/create', { user: req.session.username })
+    res.render('./snippets/create', { user: req.session.username })
   }
 
   /**
@@ -76,6 +75,7 @@ export class SnippetController {
     }
     try {
       const snippet = new Snippet({
+        title: req.body.title,
         description: req.body.description,
         author: req.session.username
       })
@@ -122,7 +122,7 @@ export class SnippetController {
   async update (req, res) {
     try {
       const snippet = await Snippet.findById(req.params.id)
-      res.render('snippets/update', { viewData: snippet.toObject() })
+      res.render('./snippets/update', { viewData: snippet.toObject() })
     } catch (error) {
       req.session.flash = { type: 'danger', text: error.message }
       res.redirect('..')
@@ -130,7 +130,7 @@ export class SnippetController {
   }
 
   /**
-   * Updates a specific task.
+   * Updates a specific snippet.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
@@ -142,9 +142,7 @@ export class SnippetController {
       if (snippet) {
         snippet.description = req.body.description
         snippet.done = req.body.done === 'on'
-
         await snippet.save()
-
         req.session.flash = { type: 'success', text: 'The snippet was updated successfully.' }
       } else {
         req.session.flash = {
@@ -169,7 +167,7 @@ export class SnippetController {
     try {
       const snippet = await Snippet.findById(req.params.id)
 
-      res.render('snippets/delete', { viewData: snippet.toObject() })
+      res.render('./snippets/delete', { viewData: snippet.toObject() })
     } catch (error) {
       req.session.flash = { type: 'danger', text: error.message }
       res.redirect('..')
@@ -177,7 +175,7 @@ export class SnippetController {
   }
 
   /**
-   * Deletes the specified task.
+   * Deletes the specified snippet.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
@@ -185,7 +183,6 @@ export class SnippetController {
   async deletePost (req, res) {
     try {
       await Snippet.findByIdAndDelete(req.body.id)
-
       req.session.flash = { type: 'success', text: 'The snippet was deleted successfully.' }
       res.redirect('..')
     } catch (error) {

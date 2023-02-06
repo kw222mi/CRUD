@@ -17,8 +17,8 @@ export class UserController {
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
    */
-  async register(req, res) {
-    res.render('users/register')
+  async register (req, res) {
+    res.render('./users/register')
   }
 
   /**
@@ -28,20 +28,18 @@ export class UserController {
    * @param {object} res - Express response object.
    */
   async registerPost (req, res) {
-    console.log(req.body)
     try {
       const user = new User({
         username: req.body.username,
         password: req.body.password
       })
-      console.log(user)
       await user.save()
 
       req.session.flash = { type: 'success', text: 'The user was created successfully.' }
-      res.redirect('/users/login')
+      res.redirect('./users/login')
     } catch (error) {
-      req.session.flash = { type: 'danger', text: error.message }
-      res.redirect('/users/register')
+      req.session.flash = { type: 'danger', text: 'Could not create user, pick another username.' }
+      res.redirect('./register')
     }
   }
 
@@ -52,7 +50,7 @@ export class UserController {
    * @param {object} res - Express response object.
    */
   async login (req, res) {
-    res.render('users/login', { user: req.session.username })
+    res.render('./users/login', { user: req.session.username })
   }
 
   /**
@@ -64,7 +62,6 @@ export class UserController {
    */
   loginPost = async (req, res, next) => {
     try {
-      console.log(req.session)
       await User.authenticate(req.body.username, req.body.password)
       req.session.regenerate((err) => {
         if (err) {
@@ -73,12 +70,11 @@ export class UserController {
         // Store the authenticated user in the session store.
         req.session.auth = true
         req.session.username = req.body.username
-        console.log(req.session)
         res.redirect('/snippets/create')
       })
     } catch (error) {
       req.session.flash = { type: 'danger', text: error.message }
-      res.redirect('/users')
+      res.redirect('/users/register')
     }
   }
 
@@ -90,6 +86,7 @@ export class UserController {
    * @param {object} next - Express next object.
    */
   async logout (req, res, next) {
+    // check if user is logged in
     if (!req.session.auth === true) {
       console.log('not logged in')
       const error = new Error('Not found')

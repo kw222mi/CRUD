@@ -18,7 +18,6 @@ import mongoose from 'mongoose'
  */
 export const connectDB = async () => {
   const { connection } = mongoose
-
   // Bind connection to events (to get notifications).
   connection.on('connected', () => console.log('MongoDB connection opened.'))
   connection.on('error', err => console.error(`MongoDB connection error occurred: ${err}`))

@@ -2,13 +2,14 @@
 <form class="row g-3" method="post" action="./snippets/create">
   <div class="col-md-12">
     <% if (user) { %>
-    <textarea type="text" cols="40" rows="10" class="form-control" id="descriptionInput" name="description"
-      placeholder="Enter a new snippet here" required="required" autofocus="autofocus" ></textarea>      
+    <input type="text" name="title" class="form-control" required="required" autofocus="autofocus" placeholder="Enter a title here"></input>
+    <textarea type="text" cols="40" rows="10" class="form-control" id="createDescriptionInput" name="description"
+      placeholder="Enter a new snippet here" required="required" ></textarea>      
   </div>
   <div class="col-12">
     <button type="submit" class="btn btn-primary">Create</button>
   </div>
   <% } else { %>
-    <a href=/users/login >Login to create snippet</a>
+    <a href="./users/login" >Login to create snippet</a>
     <% } %>
 </form>
