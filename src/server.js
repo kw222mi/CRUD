@@ -74,7 +74,7 @@ try {
     secret: process.env.SESSION_SECRET, // Change it!!! The secret is used to hash the session with HMAC.
     resave: false, // Resave even if a request is not changing the session.
     saveUninitialized: false, // Don't save a created but not modified session.
-   // store: store,
+    // store: store,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24, // 1 day
       sameSite: 'strict'
