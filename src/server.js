@@ -60,7 +60,7 @@ try {
   app.use(express.static(join(directoryFullName, '..', 'public')))
 
   const store = new MongoStore({
-    uri: 'mongodb://localhost:27017/CRUDsnippets',
+    mongoUrl: process.env.DB_CONNECTION_STRING,
     databaseName: 'CRUDsnippets',
     collection: 'userSessions'
   })
@@ -74,7 +74,7 @@ try {
     secret: process.env.SESSION_SECRET, // Change it!!! The secret is used to hash the session with HMAC.
     resave: false, // Resave even if a request is not changing the session.
     saveUninitialized: false, // Don't save a created but not modified session.
-    store: store,
+   // store: store,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24, // 1 day
       sameSite: 'strict'

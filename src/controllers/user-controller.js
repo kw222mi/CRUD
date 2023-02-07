@@ -74,7 +74,7 @@ export class UserController {
       })
     } catch (error) {
       req.session.flash = { type: 'danger', text: error.message }
-      res.redirect('./login')
+      res.redirect('./register')
     }
   }
 
@@ -96,7 +96,7 @@ export class UserController {
       // destroy session data
       req.session.destroy()
       // redirect to homepage
-      res.redirect('/')
+      res.redirect('../')
     }
   }
 }
