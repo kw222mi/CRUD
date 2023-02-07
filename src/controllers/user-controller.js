@@ -36,7 +36,7 @@ export class UserController {
       await user.save()
 
       req.session.flash = { type: 'success', text: 'The user was created successfully.' }
-      res.redirect('./users/login')
+      res.redirect('./login')
     } catch (error) {
       req.session.flash = { type: 'danger', text: 'Could not create user, pick another username.' }
       res.redirect('./register')
@@ -70,11 +70,11 @@ export class UserController {
         // Store the authenticated user in the session store.
         req.session.auth = true
         req.session.username = req.body.username
-        res.redirect('/snippets/create')
+        res.redirect('../snippets/create')
       })
     } catch (error) {
       req.session.flash = { type: 'danger', text: error.message }
-      res.redirect('/users/register')
+      res.redirect('./login')
     }
   }
 
